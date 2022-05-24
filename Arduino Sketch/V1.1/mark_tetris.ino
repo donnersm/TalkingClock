@@ -192,34 +192,7 @@ void setup() {
   Serial.println(F("Audio Initialized..."));
 
 
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  if (  WiFi.waitForConnectResult() != WL_CONNECTED ) // Try to connect
-  { localserver = true;
-    Serial.println(F("Could not connect...so creating access point..."));
-    WiFi.softAP("GeniusWeb", "");
-    Serial.println (WiFi.localIP() );
-  }
- // if (localserver == true)
- // {
-    //WiFi.softAP("GeniusWeb", "Genius");
-   // Serial.println (WiFi.localIP() );
-  //}
-  server.on("/", []() {
-    server.send_P(200, "text/html", webpage);
-  });
-
-  server.on("/myMesg", handleMesg);
-  // now start the server
-
-  server.begin();
-  Serial.println(F(""));
-  Serial.println(F("HTTP server started..."));
-  Serial.println(F(""));
-
-  webSocket.begin();  // init the Websocketserver
-  webSocket.onEvent(webSocketEvent);  // init the webSocketEvent function when a websocket event occurs
-
+  
   if (DisplayType.equals("64x64x1NC")) {
     Serial.println(F("valid Display setting: 64*64px  1 panels"));
     PANEL_RES_X = 64;
@@ -386,6 +359,36 @@ void setup() {
   tetris2.display = dma_display; // The "M" of AM/PM
   tetris3.display = dma_display; // The "P" or "A" of AM/PM
 
+WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  if (  WiFi.waitForConnectResult() != WL_CONNECTED ) // Try to connect
+  { localserver = true;
+    Serial.println(F("Could not connect...so creating access point..."));
+    WiFi.softAP("GeniusWeb", "");
+    Serial.println (WiFi.localIP() );
+  }
+ // if (localserver == true)
+ // {
+    //WiFi.softAP("GeniusWeb", "Genius");
+   // Serial.println (WiFi.localIP() );
+  //}
+  server.on("/", []() {
+    server.send_P(200, "text/html", webpage);
+  });
+
+  server.on("/myMesg", handleMesg);
+  // now start the server
+
+  server.begin();
+  Serial.println(F(""));
+  Serial.println(F("HTTP server started..."));
+  Serial.println(F(""));
+
+  webSocket.begin();  // init the Websocketserver
+  webSocket.onEvent(webSocketEvent);  // init the webSocketEvent function when a websocket event occurs
+
+
+
   if (localserver == false) {
     Serial.println(F(""));
     Serial.println(F("\nWiFi connected\nIP address: "));
@@ -428,6 +431,10 @@ void setup() {
     delay(4000);
   }
   if ((PANEL_RES_Y == 64) && (PANEL_RES_X == 64))drawLogo(); // only if panel is 64x64px
+
+
+
+  
   delay(4000);
   finishedAnimating = false;
   displayIntro = false;
