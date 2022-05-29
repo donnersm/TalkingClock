@@ -38,3 +38,7 @@ Using library FFat at version 1.0
 Using library Adafruit_BusIO at version 1.7.1 
 Using library Wire at version 1.0.1 
 Using library EEPROM at version 1.0.3 
+
+
+I got some feedback that the main branch audio driver plays back the audio with a stutter. If this is the case, then you can use this branche instead:
+https://github.com/schreibfaul1/ESP32-audioI2S/tree/prepare-for-m4a
